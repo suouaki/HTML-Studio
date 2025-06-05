@@ -131,9 +131,18 @@
 
         .code-block pre {
             margin: 0;
-            white-space: pre;
+            white-space: pre-wrap;
+            word-break: break-all;
             line-height: 1.6;
             font-size: 14px;
+        }
+
+        .code-block code {
+            background: none;
+            color: inherit;
+            font-family: inherit;
+            font-size: inherit;
+            padding: 0;
         }
 
         .code-block::before {
@@ -432,7 +441,27 @@
 &lt;ol&gt;
     &lt;li&gt;有序列表项1&lt;/li&gt;
     &lt;li&gt;有序列表项2&lt;/li&gt;
-&lt;/ol&gt;</pre>
+&lt;/ol&gt;
+
+&lt;!-- 表格--&gt;
+&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;姓名&lt;/th&gt;
+    &lt;th&gt;年龄&lt;/th&gt;
+    &lt;th&gt;城市&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;张三&lt;/td&gt;
+    &lt;td&gt;25&lt;/td&gt;
+    &lt;td&gt;北京&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;李四&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+    &lt;td&gt;上海&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
                 </div>
 
                 <div class="example-demo">
@@ -452,6 +481,25 @@
                         <li>有序列表项1</li>
                         <li>有序列表项2</li>
                     </ol>
+                      
+                    <!-- 表格-->
+                      <table border="1">
+                        <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>城市</th>
+                        </tr>
+                        <tr>
+                        <td>张三</td>
+                        <td>25</td>
+                        <td>北京</td>
+                        </tr>
+                        <tr>
+                        <td>李四</td>
+                        <td>30</td>
+                        <td>上海</td>
+                       </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -492,7 +540,7 @@ h1 {
                 </div>
 
                 <h3>3. CSS选择器</h3>
-                <div class="code-block">
+                <div class="code-block"><pre><code>
 /* 元素选择器 */
 p { color: red; }
 
@@ -507,10 +555,10 @@ div p { margin: 10px; }
 
 /* 伪类选择器 */
 a:hover { color: green; }
-                </div>
+                </code></pre></div>
 
                 <h3>4. 常用CSS属性</h3>
-                <div class="code-block">
+                <div class="code-block"><pre><code>
 /* 字体和文本 */
 font-family: Arial, sans-serif;
 font-size: 16px;
@@ -537,7 +585,7 @@ justify-content: center;
 align-items: center;
 position: relative;
 float: left;
-                </div>
+                </code></pre></div>
 
                 <div class="example-demo">
                     <h4>CSS效果演示：</h4>
@@ -563,7 +611,7 @@ float: left;
                 <p>JavaScript是一种动态编程语言，用于为网页添加交互性和动态行为。它可以操作HTML元素、响应用户事件、进行数据处理等。</p>
                 
                 <h3>2. JavaScript基本语法</h3>
-                <div class="code-block">
+                <div class="code-block"><pre><code>
 // 变量声明
 let message = "Hello, World!";
 const pi = 3.14159;
@@ -584,14 +632,10 @@ if (count > 0) {
     console.log("Count is zero or negative");
 }
 
-// 循环
-for (let i = 0; i < 5; i++) {
-    console.log("Number: " + i);
-}
-                </div>
+</code></pre></div>
 
                 <h3>3. DOM操作</h3>
-                <div class="code-block">
+                <div class="code-block"><pre><code>
 // 获取元素
 const element = document.getElementById("myId");
 const elements = document.getElementsByClassName("myClass");
@@ -614,10 +658,10 @@ element.addEventListener("click", function() {
 const newDiv = document.createElement("div");
 newDiv.textContent = "这是新创建的元素";
 document.body.appendChild(newDiv);
-                </div>
+                </code></pre></div>
 
                 <h3>4. 实用示例</h3>
-                <div class="code-block">
+                <div class="code-block"><pre><code>
 // 1. 简单计算器函数
 function calculator(a, b, operation) {
     switch(operation) {
@@ -642,7 +686,7 @@ const person = {
         return `你好，我是${this.name}`;
     }
 };
-                </div>
+                </code></pre></div>
 
                 <div class="example-demo">
                     <h4>JavaScript交互演示：</h4>
