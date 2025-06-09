@@ -407,8 +407,8 @@
     <div class="app-header">
         <h1 class="app-title">🚀 HTML Studio</h1>
         <div class="toolbar">
-            <button class="btn btn-primary" onclick="saveFile()">
-                💾 保存
+            <button class="btn btn-primary" onclick="pasteFromClipboard()">
+                📋 粘贴
             </button>
             <button class="btn btn-secondary" onclick="copyCode()">
                 📋 复制
@@ -566,16 +566,12 @@
                         <h3>⌨️ 编辑快捷键</h3>
                         <div class="shortcuts-grid">
                             <div class="shortcut-item">
-                                <span>保存</span>
-                                <kbd class="shortcut-key">Ctrl+S</kbd>
+                                <span>粘贴</span>
+                                <kbd class="shortcut-key">Ctrl+V</kbd>
                             </div>
                             <div class="shortcut-item">
                                 <span>复制</span>
                                 <kbd class="shortcut-key">Ctrl+C</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>粘贴</span>
-                                <kbd class="shortcut-key">Ctrl+V</kbd>
                             </div>
                             <div class="shortcut-item">
                                 <span>撤销</span>
@@ -738,10 +734,6 @@ function showAlert() {
             foldGutter: true,
             gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
             extraKeys: {
-                "Ctrl-S": function(cm) {
-                    saveFile();
-                    return false;
-                },
                 "Ctrl-Alt-F": function(cm) {
                     formatCode();
                 },
@@ -801,6 +793,23 @@ function showAlert() {
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // 粘贴剪贴板内容
+        async function pasteFromClipboard() {
+            if (navigator.clipboard) {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    const doc = editor.getDoc();
+                    const cursor = doc.getCursor();
+                    doc.replaceRange(text, cursor);
+                    showToast('已粘贴剪贴板内容！');
+                } catch (err) {
+                    showToast('无法读取剪贴板内容');
+                }
+            } else {
+                showToast('当前浏览器不支持Clipboard API');
+            }
         }
 
         // 保存文件
@@ -1124,7 +1133,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>© 2025 代码世界. 保留所有权利.</p>
+        <p> 2025 代码世界. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1173,7 +1182,6 @@ fetchData();
             background: white;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .article h1 {
             font-size: 1.8rem;
@@ -1248,7 +1256,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>© 2025 技术笔记. 保留所有权利.</p>
+        <p> 2025 技术笔记. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1376,7 +1384,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>© 2025 生活与技术. 保留所有权利.</p>
+        <p> 2025 生活与技术. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1508,7 +1516,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>&copy; 2025 每日灵感. 保留所有权利.</p>
+        <p> 2025 每日灵感. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1611,7 +1619,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>&copy; 2025 创意笔记. 保留所有权利.</p>
+        <p> 2025 创意笔记. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1708,11 +1716,11 @@ fetchData();
             margin-top: 30px;
         }
         @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
             .header h1 {
                 font-size: 1.8rem;
+            }
+            .container {
+                padding: 15px;
             }
         }
     </style>
@@ -1760,7 +1768,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p>&copy; 2025 技术洞察. 保留所有权利.</p>
+        <p> 2025 技术洞察. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1786,11 +1794,11 @@ fetchData();
             text-align: center;
         }
         .header h1 {
-            margin: 0;
-            font-size: 2.5rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
         .header p {
-            margin: 10px 0 0;
+            font-size: 1.2rem;
             opacity: 0.9;
         }
         .container {
@@ -1861,7 +1869,7 @@ fetchData();
     </div>
     
     <div class="footer">
-        <p>&copy; 2024 我的博客. 保留所有权利.</p>
+        <p> 2024 我的博客. 保留所有权利.</p>
     </div>
 </body>
 </html>`,
@@ -2052,7 +2060,7 @@ fetchData();
             margin-bottom: 1rem;
         }
         .header p {
-            font-size: 1.2rem;
+            margin: 10px 0 0;
             opacity: 0.9;
         }
         .nav {
@@ -2282,7 +2290,7 @@ fetchData();
         <div class="container">
             <h3>让我们一起创造美好的产品</h3>
             <p>📧 contact@designer.com | 📱 +86 138 0000 0000</p>
-            <p>&copy; 2024 张设计师作品集. 保留所有权利.</p>
+            <p> 2024 张设计师作品集. 保留所有权利.</p>
         </div>
     </footer>
 </body>
@@ -2295,20 +2303,38 @@ fetchData();
             }
         }
 
-        // 键盘快捷键处理
+        // 快捷键插入常用标签
+        const tagSnippets = {
+            'ctrl+s': '<section>\n\n</section>',
+            'ctrl+z': '<h1>主标题</h1>',
+            'escape': '<p>段落文本内容。</p>',
+            'ctrl+1': '<header>\n    <h1>网站标题</h1>\n</header>',
+            'ctrl+2': '<nav>\n    <ul>\n        <li><a href="#home">首页</a></li>\n        <li><a href="#about">关于</a></li>\n    </ul>\n</nav>',
+            'ctrl+3': '<main>\n    <article>\n        <h2>文章标题</h2>\n        <p>文章内容...</p>\n    </article>\n</main>',
+            'ctrl+4': '<footer>\n    <p>版权所有 &copy; 2025</p>\n</footer>',
+            'ctrl+5': '<ul>\n    <li>无序列表项</li>\n</ul>',
+            'ctrl+6': '<ol>\n    <li>有序列表项</li>\n</ol>',
+            'ctrl+7': '<table>\n    <caption>表格标题</caption>\n    <thead>\n        <tr>\n            <th>表头</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td>数据1</td>\n        </tr>\n    </tbody>\n</table>',
+            'ctrl+8': '<form action="/submit" method="post">\n    <fieldset>\n        <legend>表单分组</legend>\n        <label for="username">用户名</label>\n        <input type="text" id="username" name="username">\n    </fieldset>\n</form>',
+            'ctrl+9': '<img src="img.jpg" alt="图片描述">'
+        };
         document.addEventListener('keydown', function(e) {
-            // 阻止浏览器默认的Ctrl+S行为
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                saveFile();
+            let key = '';
+            if (e.ctrlKey && e.key.match(/^\d$/)) {
+                key = `ctrl+${e.key}`;
+            } else if (e.ctrlKey && e.key === 's') {
+                key = 'ctrl+s';
+            } else if (e.ctrlKey && e.key === 'z') {
+                key = 'ctrl+z';
+            } else if (e.key === 'Escape') {
+                key = 'escape';
             }
-            
-            // ESC键退出全屏
-            if (e.key === 'Escape') {
-                const previewPanel = document.querySelector('.preview-panel');
-                if (previewPanel.style.position === 'fixed') {
-                    toggleFullscreen();
-                }
+            if (tagSnippets[key]) {
+                e.preventDefault();
+                const doc = editor.getDoc();
+                const cursor = doc.getCursor();
+                doc.replaceRange(tagSnippets[key], cursor);
+                showToast('已插入标签片段！');
             }
         });
 
