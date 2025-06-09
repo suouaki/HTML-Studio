@@ -658,8 +658,9 @@
                 </div>
 
                 <div id="guide-tab" class="tab-content hidden">
-                    <div class="guide-section">
-                        <h3>📚 HTML基础</h3>
+                    <div class="guide-section">                      
+                       <details>
+                          <summary>📚 HTML基础</summary>
                         <p>HTML是网页的骨架，定义了内容的结构和语义。</p>
                         <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="zh-CN"&gt;
@@ -672,10 +673,12 @@
     &lt;p&gt;段落内容&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                    </div>
-
+                    </details>
+                  </div>
+                  
                     <div class="guide-section">
-                        <h3>🎨 CSS样式</h3>
+                      <details>
+                        <summary>🎨 CSS样式</summary>
                         <p>CSS用于控制网页的外观和布局。</p>
                         <pre><code>&lt;style&gt;
 body {
@@ -688,22 +691,25 @@ h1 {
     text-align: center;
 }
 &lt;/style&gt;</code></pre>
-                    </div>
-
+                    </details>
+                      </div>
+                  
                     <div class="guide-section">
-                        <h3>⚡ JavaScript交互</h3>
+                        <details>
+                        <summary>⚡ JavaScript交互</summary>
                         <p>JavaScript为网页添加动态行为和交互功能。</p>
                         <pre><code>&lt;script&gt;
 function showAlert() {
     alert('Hello, World!');
 }
 &lt;/script&gt;</code></pre>
+                          </details>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!-- Toast 通知 -->
     <div id="toast" class="toast">
         <div id="toast-message"></div>
