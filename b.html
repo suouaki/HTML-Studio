@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="http://momo-1-img.ao1160301aila.workers.dev/favicon.ico">
     <title>增强版HTML编辑器与预览</title>
     <!-- 引入CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css">
@@ -563,44 +564,199 @@
             <div class="sidebar-content">
                 <div id="shortcuts-tab" class="tab-content">
                     <div class="guide-section">
-                        <h3>⌨️ 编辑快捷键</h3>
-                        <div class="shortcuts-grid">
-                            <div class="shortcut-item">
-                                <span>粘贴</span>
-                                <kbd class="shortcut-key">Ctrl+V</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>复制</span>
-                                <kbd class="shortcut-key">Ctrl+C</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>撤销</span>
-                                <kbd class="shortcut-key">Ctrl+Z</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>重做</span>
-                                <kbd class="shortcut-key">Ctrl+Y</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>查找</span>
-                                <kbd class="shortcut-key">Ctrl+F</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>替换</span>
-                                <kbd class="shortcut-key">Ctrl+H</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>全选</span>
-                                <kbd class="shortcut-key">Ctrl+A</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>格式化代码</span>
-                                <kbd class="shortcut-key">Ctrl+Alt+F</kbd>
-                            </div>
-                            <div class="shortcut-item">
-                                <span>跳转到行</span>
-                                <kbd class="shortcut-key">Ctrl+G</kbd>
-                            </div>
+                        <h3>🏷️ 常用标签写入</h3>
+                        <div class="shortcuts-grid" id="insert-tags-grid">
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;!DOCTYPE html&gt;">&lt;!DOCTYPE html&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;html&gt;">&lt;html&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;head&gt;">&lt;head&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;body&gt;">&lt;body&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;div&gt;&lt;/div&gt;">&lt;div&gt;&lt;/div&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;span&gt;&lt;/span&gt;">&lt;span&gt;&lt;/span&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h1&gt;标题&lt;/h1&gt;">&lt;h1&gt;标题&lt;/h1&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h2&gt;标题&lt;/h2&gt;">&lt;h2&gt;标题&lt;/h2&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h3&gt;标题&lt;/h3&gt;">&lt;h3&gt;标题&lt;/h3&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;p&gt;段落&lt;/p&gt;">&lt;p&gt;段落&lt;/p&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;li&gt;列表项&lt;/li&gt;">&lt;li&gt;列表项&lt;/li&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;title&gt;网页标题&lt;/title&gt;">&lt;title&gt;网页标题&lt;/title&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;&gt;">&lt;script src="script.js"&gt;&lt;/script&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;body&gt;&lt;/body&gt;">&lt;body&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;header&gt;&lt;h1&gt;网站标题&lt;/h1&gt;&lt;/header&gt;">主标题</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;button&gt;按钮&lt;/button&gt;">&lt;button&gt;按钮&lt;/button&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;label&gt;标签&lt;/label&gt;">&lt;label&gt;标签&lt;/label&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;section&gt;&lt;/section&gt;">&lt;section&gt;&lt;/section&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;article&gt;&lt;/article&gt;">&lt;article&gt;&lt;/article&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;nav&gt;&lt;/nav&gt;">&lt;nav&gt;&lt;/nav&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;footer&gt;&lt;/footer&gt;">&lt;footer&gt;&lt;/footer&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;header&gt;&lt;/header&gt;">&lt;header&gt;&lt;/header&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;main&gt;&lt;/main&gt;">&lt;main&gt;&lt;/main&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;aside&gt;&lt;/aside&gt;">&lt;aside&gt;&lt;/aside&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;br&gt;">&lt;br&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;hr&gt;">&lt;hr&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;ul&gt;\n  &lt;li&gt;项目1&lt;/li&gt;\n  &lt;li&gt;项目2&lt;/li&gt;\n&lt;/ul&gt;">&lt;ul&gt;...&lt;/ul&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;strong&gt;加粗&lt;/strong&gt;">&lt;strong&gt;加粗&lt;/strong&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;em&gt;强调&lt;/em&gt;">&lt;em&gt;强调&lt;/em&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;script&gt;&lt;/script&gt;">&lt;script&gt;&lt;/script&gt;</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;style&gt;&lt;/style&gt;">&lt;style&gt;&lt;/style&gt;</button>
+                        </div>
+                        <h3>🎨 CSS属性写入</h3>
+                        <div class="shortcuts-grid" id="insert-tags-grid">
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="display: ">定义元素的显示类型</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="position: ">设置定位方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="top: ">顶部偏移量</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="right: ">右侧偏移量</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="bottom: ">底部偏移量</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="left: ">左侧偏移量</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="z-index: ">层叠顺序</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="float: ">浮动方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="clear: ">清除浮动影响</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="width: ">宽度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="min-width: ">最小宽度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="max-width: ">最大宽度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="height: ">高度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="min-height: ">最小高度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="max-height: ">最大高度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="margin: ">外边距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="padding: ">内边距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="box-sizing: ">盒模型计算方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="overflow: ">内容溢出处理</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="overflow-x: ">水平方向溢出处理</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="overflow-y: ">垂直方向溢出处理</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="gap: ">项目间距（格栅/Flex布局）</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border: ">边框综合设置</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-width: ">边框宽度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-style: ">边框样式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-color: ">边框颜色</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-radius: ">圆角半径</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="outline: ">轮廓线</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background: ">背景综合设置</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-color: ">背景色</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-image: ">背景图片</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-size: ">背景尺寸</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-repeat: ">背景是否重复</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-position: ">背景位置</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="background-attachment: ">背景滚动行为</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="color: ">字体颜色</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="font-size: ">字体大小</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="font-family: ">字体系列</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="font-weight: ">字体粗细</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="font-style: ">字体样式（斜体等）</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="text-align: ">文字水平对齐方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="text-decoration: ">文字装饰线</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="line-height: ">行高</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="letter-spacing: ">字符间距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="word-spacing: ">单词间距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="text-transform: ">大小写转换</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="text-shadow: ">文字阴影</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="white-space: ">空白符处理方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="direction: ">文字方向</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-direction: ">主轴方向</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-wrap: ">是否换行</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-flow: ">方向与换行</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="justify-content: ">主轴对齐方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="align-items: ">侧轴对齐方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="align-content: ">多行侧轴对齐</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="order: ">排序顺序</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-grow: ">放大比例</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-shrink: ">缩小比例</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="flex-basis: ">初始大小</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-template-columns: ">列轨道分布</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-template-rows: ">行轨道分布</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-column: ">元素跨越列数</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-row: ">元素跨越行数</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-area: ">区域名称或位置</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="grid-gap: ">网格间距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="opacity: ">不透明度</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="box-shadow: ">元素阴影</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="cursor: ">鼠标形状</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="visibility: ">可见性</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="transition: ">过渡动画</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="transform: ">变换（旋转/缩放等）</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="animation: ">动画属性</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="list-style: ">列表样式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="list-style-type: ">列表标记类型</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="list-style-image: ">列表自定义图片标记</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-collapse: ">边框合并</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="border-spacing: ">单元格间距</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="table-layout: ">表格布局算法</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="content: ">伪元素内容</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="pointer-events: ">鼠标事件响应</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="user-select: ">是否允许选中文本</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="backface-visibility: ">背面是否可见</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="filter: ">图像/内容滤镜</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="object-fit: ">媒体填充方式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="object-position: ">媒体位置</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="resize: ">用户是否能调整大小</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="scroll-behavior: ">滚动行为</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="will-change: ">优化提示</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="touch-action: ">触摸行为控制</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="clip-path: ">裁剪路径</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="mix-blend-mode: ">混合模式</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="writing-mode: ">文字流向</button>
+                        </div>
+                        <h3>😶‍🌫️ 选择器写入</h3>
+                        <div class="shortcuts-grid" id="insert-tags-grid">
+                            <!-- 更多伪类选择器 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":first: ">选择第一个匹配的元素（动态伪类） 示例：tr:first { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":last: ">选择最后一个匹配的元素（动态伪类） 示例：tr:last { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-child(odd): ">选择奇数位置的子元素 示例：li:nth-child(odd) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-child(even): ">选择偶数位置的子元素 示例：li:nth-child(even) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-last-child(n): ">从后向前数第n个子元素 示例：li:nth-last-child(2) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-last-of-type(n): ">从后向前数同类型第n个元素 示例：p:nth-last-of-type(1) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":focus-within: ">包含获得焦点元素的祖先元素 示例：form:focus-within { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":focus-visible: ">当元素获得键盘焦点或适合视觉焦点的元素 示例：button:focus-visible { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":where(selector): ">匹配指定选择器列表的元素 示例：:where(.class1, .class2) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":is(selector): ">匹配指定选择器列表的元素（与:where类似但优先级不同） 示例：:is(h1, h2, h3) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":has(selector): ">包含指定选择器元素的父元素 示例：div:has(> p) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":default: ">表单默认选中的元素 示例：option:default { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":indeterminate: ">处于不确定状态的表单元素 示例：input:indeterminate { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":placeholder-shown: ">显示占位符的输入框 示例：input:placeholder-shown { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":autofill: ">被浏览器自动填充的表单元素 示例：input:autofill { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":fullscreen: ">处于全屏模式的元素 示例：video:fullscreen { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":modal: ">处于模态状态的元素（如dialog） 示例：dialog:modal { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":picture-in-picture: ">处于画中画模式的元素 示例：video:picture-in-picture { ... }</button>
+
+<!-- 更多伪元素选择器 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::after: ">元素后插入内容 示例：.icon::after { content: '✓'; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::first-letter: ">首字母 示例：p::first-letter { font-size: 2em; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::marker: ">列表项的标记（如项目符号） 示例::marker { color: red; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::backdrop: ">全屏或对话框的背景层 示例::backdrop { background: rgba(0,0,0,0.5); }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::part(name): ">Web组件中的指定部分 示例::part(theme) { background: blue; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="::slotted(selector): ">Web组件中插槽内容 示例::slotted(span) { color: green; }</button>
+
+<!-- 更多属性选择器 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="[attribute~='value']: ">属性值包含某单词的元素 示例：[class~='active'] { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="[attribute|='value']: ">属性值以value开头或等于value的元素 示例：[lang|='en'] { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag="[attribute='value' i]: ">属性值等于value（忽略大小写） 示例：[type='text' i] { ... }</button>
+
+<!-- 逻辑组合选择器 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":matches(selector): ">匹配选择器列表的元素（旧版:is） 示例：:matches(h1, h2) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":any(selector): ">匹配选择器列表的元素（旧版） 示例：:any(.class1, .class2) { ... }</button>
+
+<!-- 状态相关伪类 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":hover-track: ">鼠标轨迹经过的元素（实验性） 示例：div:hover-track { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":current: ">当前活动的元素（动态伪类，实验性） 示例::current { background: yellow; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":past: ">时间轴上之前的元素（动态伪类，实验性） 示例::past { opacity: 0.5; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":future: ">时间轴上后续的元素（动态伪类，实验性） 示例::future { display: none; }</button>
+
+<!-- 更多结构性伪类 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-last-child(odd): ">从后向前数奇数位置的子元素 示例：li:nth-last-child(odd) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-last-child(even): ">从后向前数偶数位置的子元素 示例：li:nth-last-child(even) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":only-of-type: ">仅有一个同类型子元素的元素 示例：img:only-of-type { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-of-type(odd): ">同类型奇数位置的元素 示例：p:nth-of-type(odd) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":nth-of-type(even): ">同类型偶数位置的元素 示例：p:nth-of-type(even) { ... }</button>
+
+<!-- 媒体相关伪类 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":playing: ">正在播放的媒体元素 示例：video:playing { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":paused: ">暂停的媒体元素 示例：video:paused { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":muted: ">静音的媒体元素 示例：audio:muted { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":volume-locked: ">音量锁定的媒体元素（实验性） 示例：audio:volume-locked { ... }</button>
+
+<!-- 其他高级选择器 -->
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":scope: ">当前作用域的根元素 示例：:scope > div { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":host: ">Shadow DOM的宿主元素 示例：:host { display: block; }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":host-context(selector): ">匹配Shadow DOM宿主上下文的元素 示例：:host-context(.dark-theme) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":dir(ltr): ">左到右文本方向的元素 示例：:dir(ltr) { ... }</button>
+                            <button class="btn btn-secondary tag-insert-btn" data-tag=":dir(rtl): ">右到左文本方向的元素 示例：:dir(rtl) { ... }</button>
                         </div>
                     </div>
                 </div>
@@ -653,7 +809,7 @@
                     </div>
                 </div>
 
-                                <div id="guide-tab" class="tab-content hidden">
+                <div id="guide-tab" class="tab-content hidden">
                     <div class="guide-section">                      
                        <details>
                           <summary>📚 HTML基础</summary>
@@ -671,7 +827,226 @@
 &lt;/html&gt;</code></pre>
                     </details>
                   </div>
-                  
+                
+                <div class="guide-section">
+                      <details>
+                        <summary>🛠️ HTML标签</summary>
+                        <p>HTML常用标签聚合</p>
+                        <pre><code>&lt;!-- 文档结构和元信息 --&gt;
+&lt;!DOCTYPE html&gt; &lt;!-- 文档类型声明 --&gt;
+&lt;html&gt;        &lt;!-- 根标签 --&gt;
+&lt;head&gt;        &lt;!-- 文档头部 --&gt;
+    &lt;meta charset="UTF-8"&gt; &lt;!-- 字符编码声明 --&gt;
+    &lt;title&gt;网页标题&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt; &lt;!-- 外部样式表 --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;        &lt;!-- 外部脚本 --&gt;
+&lt;/head&gt;
+&lt;body&gt;        &lt;!-- 网页主体内容 --&gt;
+
+&lt;!-- 结构与布局 --&gt;
+&lt;header&gt; &lt;!-- 页眉区域 --&gt;
+    &lt;h1&gt;网站标题&lt;/h1&gt;
+&lt;/header&gt;
+&lt;nav&gt; &lt;!-- 导航区域 --&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;首页&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#about"&gt;关于&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt; &lt;!-- 主要内容区 --&gt;
+    &lt;article&gt; &lt;!-- 独立内容块，如文章 --&gt;
+        &lt;h2&gt;文章标题&lt;/h2&gt;
+        &lt;p&gt;文章内容...&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;section&gt; &lt;!-- 内容分区 --&gt;
+        &lt;h3&gt;分区标题&lt;/h3&gt;
+        &lt;p&gt;分区内容...&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;aside&gt; &lt;!-- 侧边栏内容 --&gt;
+        &lt;p&gt;侧边信息&lt;/p&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt; &lt;!-- 页脚区域 --&gt;
+    &lt;p&gt;版权所有 &copy; 2025&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;!-- 标题与段落 --&gt;
+&lt;h1&gt;主标题&lt;/h1&gt;
+&lt;h2&gt;二级标题&lt;/h2&gt;
+&lt;h3&gt;三级标题&lt;/h3&gt;
+&lt;h4&gt;四级标题&lt;/h4&gt;
+&lt;h5&gt;五级标题&lt;/h5&gt;
+&lt;h6&gt;六级标题&lt;/h6&gt;
+&lt;p&gt;段落文本内容。&lt;/p&gt;
+
+&lt;!-- 文本格式化 --&gt;
+&lt;b&gt;加粗文本&lt;/b&gt;
+&lt;strong&gt;重要加粗&lt;/strong&gt;
+&lt;i&gt;斜体文本&lt;/i&gt;
+&lt;em&gt;强调文本&lt;/em&gt;
+&lt;mark&gt;高亮文本&lt;/mark&gt;
+&lt;small&gt;小号字体&lt;/small&gt;
+&lt;del&gt;删除线文本&lt;/del&gt;
+&lt;ins&gt;插入线文本&lt;/ins&gt;
+&lt;sub&gt;下标&lt;/sub&gt;
+&lt;sup&gt;上标&lt;/sup&gt;
+&lt;u&gt;下划线文本&lt;/u&gt;
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; &lt;!-- 缩写 --&gt;
+&lt;q&gt;短引用&lt;/q&gt;
+&lt;blockquote&gt;长引用内容&lt;/blockquote&gt;
+&lt;cite&gt;引用来源&lt;/cite&gt;
+&lt;code&gt;内联代码&lt;/code&gt;
+&lt;pre&gt;
+多行
+预格式文本
+&lt;/pre&gt;
+&lt;kbd&gt;用户输入&lt;/kbd&gt;
+&lt;samp&gt;计算机输出&lt;/samp&gt;
+&lt;var&gt;变量&lt;/var&gt;
+&lt;time datetime="2025-06-06"&gt;2025年6月6日&lt;/time&gt;
+&lt;address&gt;联系地址&lt;/address&gt;
+&lt;br&gt; &lt;!-- 换行 --&gt;
+&lt;hr&gt; &lt;!-- 水平分隔线 --&gt;
+&lt;wbr&gt; &lt;!-- 建议换行位置 --&gt;
+
+&lt;!-- 超链接与锚点 --&gt;
+&lt;a href="https://example.com"&gt;点击访问&lt;/a&gt;
+&lt;a href="#section1"&gt;跳转到分区&lt;/a&gt;
+
+&lt;!-- 列表 --&gt;
+&lt;ul&gt;
+    &lt;li&gt;无序列表项&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+    &lt;li&gt;有序列表项&lt;/li&gt;
+&lt;/ol&gt;
+&lt;dl&gt;
+    &lt;dt&gt;术语&lt;/dt&gt;
+    &lt;dd&gt;术语解释&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;!-- 图像与多媒体 --&gt;
+&lt;img src="img.jpg" alt="图片描述"&gt;
+&lt;figure&gt;
+    &lt;img src="img.jpg" alt="示例图片"&gt;
+    &lt;figcaption&gt;图片说明文字&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;audio src="audio.mp3" controls&gt;不支持音频&lt;/audio&gt;
+&lt;video src="movie.mp4" controls&gt;不支持视频&lt;/video&gt;
+&lt;source src="movie.webm" type="video/webm"&gt;
+&lt;track kind="subtitles" src="subtitle.vtt" srclang="zh" label="中文"&gt;
+&lt;embed src="file.pdf"&gt;
+&lt;object data="file.pdf" type="application/pdf"&gt;&lt;/object&gt;
+&lt;iframe src="https://example.com"&gt;&lt;/iframe&gt;
+&lt;canvas id="myCanvas" width="200" height="100"&gt;&lt;/canvas&gt;
+&lt;map name="mapname"&gt;
+    &lt;area shape="rect" coords="34,44,270,350" href="link.html"&gt;
+&lt;/map&gt;
+&lt;picture&gt;
+    &lt;source srcset="img.webp" type="image/webp"&gt;
+    &lt;img src="img.jpg" alt="图片"&gt;
+&lt;/picture&gt;
+
+&lt;!-- 表格 --&gt;
+&lt;table&gt;
+    &lt;caption&gt;表格标题&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;表头&lt;/th&gt;
+            &lt;th&gt;表头2&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;数据1&lt;/td&gt;
+            &lt;td&gt;数据2&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td&gt;合计&lt;/td&gt;
+            &lt;td&gt;100&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+&lt;tr&gt; &lt;!-- 表格行 --&gt;
+&lt;th&gt;表头单元格&lt;/th&gt;
+&lt;td&gt;数据单元格&lt;/td&gt;
+&lt;colgroup&gt;&lt;col span="2" style="background:yellow"&gt;&lt;/colgroup&gt;
+
+&lt;!-- 表单相关 --&gt;
+&lt;form action="/submit" method="post"&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;表单分组&lt;/legend&gt;
+        &lt;label for="username"&gt;用户名&lt;/label&gt;
+        &lt;input type="text" id="username" name="username"&gt;
+        &lt;input type="password" name="pwd"&gt;
+        &lt;input type="checkbox" name="agree"&gt;
+        &lt;input type="radio" name="gender" value="male"&gt;
+        &lt;input type="submit" value="提交"&gt;
+        &lt;input type="reset" value="重置"&gt;
+        &lt;input type="file" name="upload"&gt;
+        &lt;input type="date" name="birthday"&gt;
+        &lt;input type="range" min="0" max="100"&gt;
+        &lt;input type="color" name="color"&gt;
+        &lt;input type="hidden" name="token" value="abc"&gt;
+        &lt;button type="button"&gt;按钮&lt;/button&gt;
+        &lt;select name="city"&gt;
+            &lt;option value="sh"&gt;上海&lt;/option&gt;
+            &lt;option value="bj"&gt;北京&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;textarea name="desc"&gt;&lt;/textarea&gt;
+        &lt;datalist id="browsers"&gt;
+            &lt;option value="Chrome"&gt;
+            &lt;option value="Firefox"&gt;
+        &lt;/datalist&gt;
+        &lt;output name="result"&gt;&lt;/output&gt;
+        &lt;progress value="70" max="100"&gt;&lt;/progress&gt;
+        &lt;meter value="0.6"&gt;60%&lt;/meter&gt;
+    &lt;/fieldset&gt;
+&lt;/form&gt;
+&lt;label&gt;标签&lt;/label&gt;
+&lt;legend&gt;分组标题&lt;/legend&gt;
+&lt;fieldset&gt;分组容器&lt;/fieldset&gt;
+&lt;optgroup label="一组选项"&gt;
+    &lt;option value="1"&gt;选项1&lt;/option&gt;
+&lt;/optgroup&gt;
+
+&lt;!-- 语义与辅助 --&gt;
+&lt;details&gt;
+    &lt;summary&gt;展开/收起标题&lt;/summary&gt;
+    &lt;p&gt;详细内容&lt;/p&gt;
+&lt;/details&gt;
+&lt;dialog open&gt;对话框内容&lt;/dialog&gt;
+&lt;summary&gt;细节标题&lt;/summary&gt;
+&lt;template&gt;
+    &lt;p&gt;模板内容，不在页面显示&lt;/p&gt;
+&lt;/template&gt;
+&lt;slot&gt;插槽内容&lt;/slot&gt; &lt;!-- web components用 --&gt;
+&lt;shadow&gt;影子DOM（已废弃）&lt;/shadow&gt;
+
+&lt;!-- 脚本与样式 --&gt;
+&lt;script&gt;alert('Hello!');&lt;/script&gt;
+&lt;script src="main.js"&gt;&lt;/script&gt;
+&lt;noscript&gt;不支持JS时显示的内容&lt;/noscript&gt;
+&lt;style&gt;
+    body { color: #333; }
+&lt;/style&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;base href="https://example.com/"&gt;
+
+&lt;!-- 其他常用标签 --&gt;
+&lt;s&gt;表示不再相关的内容&lt;/s&gt;
+&lt;sup&gt;上标&lt;/sup&gt;
+&lt;sub&gt;下标&lt;/sub&gt;
+&lt;mark&gt;高亮&lt;/mark&gt;
+&lt;ruby&gt;注音&lt;rt&gt;zhù yīn&lt;/rt&gt;&lt;/ruby&gt;
+&lt;rp&gt;(注音括号，兼容用)&lt;/rp&gt;
+&lt;bdi&gt;双向隔离&lt;/bdi&gt;
+&lt;bdo dir="rtl"&gt;方向覆盖&lt;/bdo&gt;</code></pre>
+                    </details>
+                      </div>
+                      
                     <div class="guide-section">
                       <details>
                         <summary>🎨 CSS样式</summary>
@@ -688,7 +1063,112 @@ h1 {
 }
 &lt;/style&gt;</code></pre>
                     </details>
-                      </div>
+                </div>
+                  
+                    <div class="guide-section">
+                      <details>
+                        <summary>🦄 CSS属性值</summary>
+                        <p>CSS属性示例</p>
+                        <pre><code>/* 布局与盒模型 */
+display: 定义元素的显示类型 /* display: flex; */
+position: 设置定位方式 /* position: absolute; */
+top: 顶部偏移量 /* top: 10px; */
+right: 右侧偏移量 /* right: 20px; */
+bottom: 底部偏移量 /* bottom: 0; */
+left: 左侧偏移量 /* left: 0; */
+z-index: 层叠顺序 /* z-index: 100; */
+float: 浮动方式 /* float: right; */
+clear: 清除浮动影响 /* clear: both; */
+width: 宽度 /* width: 200px; */
+min-width: 最小宽度 /* min-width: 100px; */
+max-width: 最大宽度 /* max-width: 400px; */
+height: 高度 /* height: 150px; */
+min-height: 最小高度 /* min-height: 50px; */
+max-height: 最大高度 /* max-height: 300px; */
+margin: 外边距 /* margin: 10px 20px; */
+padding: 内边距 /* padding: 8px 16px; */
+box-sizing: 盒模型计算方式 /* box-sizing: border-box; */
+overflow: 内容溢出处理 /* overflow: auto; */
+overflow-x: 水平方向溢出处理 /* overflow-x: scroll; */
+overflow-y: 垂直方向溢出处理 /* overflow-y: hidden; */
+gap: 项目间距（格栅/Flex布局） /* gap: 20px; *//* 边框与圆角 */
+border: 边框综合设置 /* border: 1px solid #333; */
+border-width: 边框宽度 /* border-width: 2px; */
+border-style: 边框样式 /* border-style: dashed; */
+border-color: 边框颜色 /* border-color: red; */
+border-radius: 圆角半径 /* border-radius: 10px; */
+outline: 轮廓线 /* outline: 2px solid blue; *//* 背景 */
+background: 背景综合设置 /* background: #fff url(bg.jpg) no-repeat center; */
+background-color: 背景色 /* background-color: #f8f8f8; */
+background-image: 背景图片 /* background-image: url(bg.png); */
+background-size: 背景尺寸 /* background-size: cover; */
+background-repeat: 背景是否重复 /* background-repeat: no-repeat; */
+background-position: 背景位置 /* background-position: right top; */
+background-attachment: 背景滚动行为 /* background-attachment: fixed; *//* 字体与文本 */
+color: 字体颜色 /* color: #222; */
+font-size: 字体大小 /* font-size: 18px; */
+font-family: 字体系列 /* font-family: Arial, sans-serif; */
+font-weight: 字体粗细 /* font-weight: bold; */
+font-style: 字体样式（斜体等） /* font-style: italic; */
+text-align: 文字水平对齐方式 /* text-align: center; */
+text-decoration: 文字装饰线 /* text-decoration: underline; */
+line-height: 行高 /* line-height: 1.8; */
+letter-spacing: 字符间距 /* letter-spacing: 2px; */
+word-spacing: 单词间距 /* word-spacing: 8px; */
+text-transform: 大小写转换 /* text-transform: uppercase; */
+text-shadow: 文字阴影 /* text-shadow: 1px 1px 3px #999; */
+white-space: 空白符处理方式 /* white-space: nowrap; */
+direction: 文字方向 /* direction: rtl; *//* Flex布局 */
+flex-direction: 主轴方向 /* flex-direction: column; */
+flex-wrap: 是否换行 /* flex-wrap: wrap; */
+flex-flow: 方向与换行 /* flex-flow: row wrap; */
+justify-content: 主轴对齐方式 /* justify-content: space-between; */
+align-items: 侧轴对齐方式 /* align-items: center; */
+align-content: 多行侧轴对齐 /* align-content: stretch; */
+order: 排序顺序 /* order: 2; */
+flex-grow: 放大比例 /* flex-grow: 1; */
+flex-shrink: 缩小比例 /* flex-shrink: 0; */
+flex-basis: 初始大小 /* flex-basis: 100px; *//* Grid布局 */
+grid-template-columns: 列轨道分布 /* grid-template-columns: 1fr 2fr; */
+grid-template-rows: 行轨道分布 /* grid-template-rows: 100px 200px; */
+grid-column: 元素跨越列数 /* grid-column: 1 / 3; */
+grid-row: 元素跨越行数 /* grid-row: 2 / 4; */
+grid-area: 区域名称或位置 /* grid-area: header; */
+grid-gap: 网格间距 /* grid-gap: 16px; *//* 其他视觉样式 */
+opacity: 不透明度 /* opacity: 0.6; */
+box-shadow: 元素阴影 /* box-shadow: 2px 2px 8px #aaa; */
+cursor: 鼠标形状 /* cursor: pointer; */
+visibility: 可见性 /* visibility: hidden; */
+transition: 过渡动画 /* transition: all 0.3s; */
+transform: 变换（旋转/缩放等） /* transform: scale(1.1); */
+animation: 动画属性 /* animation: fadeIn 1s ease-in; *//* 列表 */
+list-style: 列表样式 /* list-style: square inside; */
+list-style-type: 列表标记类型 /* list-style-type: decimal; */
+list-style-image: 列表自定义图片标记 /* list-style-image: url(icon.png); *//* 表格 */
+border-collapse: 边框合并 /* border-collapse: collapse; */
+border-spacing: 单元格间距 /* border-spacing: 6px; */
+table-layout: 表格布局算法 /* table-layout: fixed; *//* 伪类与伪元素 */
+a:hover { color: red; } /* 鼠标悬停样式 */
+button:active { background: #eee; } /* 按下时样式 */
+.box::before { content: '★'; } /* 元素前插入内容 */
+.box::after { content: '√'; } /* 元素后插入内容 *//* 响应式相关 */
+@media (max-width: 600px) { ... } /* 媒体查询 *//* 其它常用属性 */
+content: 伪元素内容 /* content: "Hello!"; */
+pointer-events: 鼠标事件响应 /* pointer-events: none; */
+user-select: 是否允许选中文本 /* user-select: none; *//* 更多高级/补充属性 */
+backface-visibility: 背面是否可见 /* backface-visibility: hidden; */
+filter: 图像/内容滤镜 /* filter: blur(3px); */
+object-fit: 媒体填充方式 /* object-fit: cover; */
+object-position: 媒体位置 /* object-position: center; */
+resize: 用户是否能调整大小 /* resize: both; */
+scroll-behavior: 滚动行为 /* scroll-behavior: smooth; */
+will-change: 优化提示 /* will-change: transform; */
+touch-action: 触摸行为控制 /* touch-action: none; */
+clip-path: 裁剪路径 /* clip-path: circle(50%); */
+mix-blend-mode: 混合模式 /* mix-blend-mode: multiply; */
+writing-mode: 文字流向 /* writing-mode: vertical-rl; */</code></pre>
+                    </details>
+                </div>
                   
                     <div class="guide-section">
                         <details>
@@ -705,7 +1185,7 @@ function showAlert() {
             </div>
         </div>
     </div>
-
+    
     <!-- Toast 通知 -->
     <div id="toast" class="toast">
         <div id="toast-message"></div>
@@ -742,13 +1222,6 @@ function showAlert() {
             extraKeys: {
                 "Ctrl-Alt-F": function(cm) {
                     formatCode();
-                },
-                "Ctrl-/": "toggleComment",
-                "F11": function(cm) {
-                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                },
-                "Esc": function(cm) {
-                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
                 }
             }
         });
@@ -1139,7 +1612,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 代码世界. 保留所有权利.</p>
+        <p>© 2025 代码世界. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1188,6 +1661,7 @@ fetchData();
             background: white;
             padding: 30px;
             border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .article h1 {
             font-size: 1.8rem;
@@ -1262,7 +1736,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 技术笔记. 保留所有权利.</p>
+        <p>© 2025 技术笔记. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1390,7 +1864,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 生活与技术. 保留所有权利.</p>
+        <p>© 2025 生活与技术. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1522,7 +1996,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 每日灵感. 保留所有权利.</p>
+        <p>&copy; 2025 每日灵感. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1625,7 +2099,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 创意笔记. 保留所有权利.</p>
+        <p>&copy; 2025 创意笔记. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1722,11 +2196,11 @@ fetchData();
             margin-top: 30px;
         }
         @media (max-width: 600px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
             .container {
                 padding: 15px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -1774,7 +2248,7 @@ fetchData();
     </div>
     
     <footer class="footer">
-        <p> 2025 技术洞察. 保留所有权利.</p>
+        <p>&copy; 2025 技术洞察. 保留所有权利.</p>
     </footer>
 </body>
 </html>`,
@@ -1800,11 +2274,11 @@ fetchData();
             text-align: center;
         }
         .header h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            margin: 0;
+            font-size: 2.5rem;
         }
         .header p {
-            font-size: 1.2rem;
+            margin: 10px 0 0;
             opacity: 0.9;
         }
         .container {
@@ -1875,7 +2349,7 @@ fetchData();
     </div>
     
     <div class="footer">
-        <p> 2024 我的博客. 保留所有权利.</p>
+        <p>&copy; 2024 我的博客. 保留所有权利.</p>
     </div>
 </body>
 </html>`,
@@ -2066,7 +2540,7 @@ fetchData();
             margin-bottom: 1rem;
         }
         .header p {
-            margin: 10px 0 0;
+            font-size: 1.2rem;
             opacity: 0.9;
         }
         .nav {
@@ -2296,7 +2770,7 @@ fetchData();
         <div class="container">
             <h3>让我们一起创造美好的产品</h3>
             <p>📧 contact@designer.com | 📱 +86 138 0000 0000</p>
-            <p> 2024 张设计师作品集. 保留所有权利.</p>
+            <p>&copy; 2024 张设计师作品集. 保留所有权利.</p>
         </div>
     </footer>
 </body>
@@ -2308,41 +2782,6 @@ fetchData();
                 showToast(`${templateName}模板已加载！`);
             }
         }
-
-        // 快捷键插入常用标签
-        const tagSnippets = {
-            'ctrl+s': '<section>\n\n</section>',
-            'ctrl+z': '<h1>主标题</h1>',
-            'escape': '<p>段落文本内容。</p>',
-            'ctrl+1': '<header>\n    <h1>网站标题</h1>\n</header>',
-            'ctrl+2': '<nav>\n    <ul>\n        <li><a href="#home">首页</a></li>\n        <li><a href="#about">关于</a></li>\n    </ul>\n</nav>',
-            'ctrl+3': '<main>\n    <article>\n        <h2>文章标题</h2>\n        <p>文章内容...</p>\n    </article>\n</main>',
-            'ctrl+4': '<footer>\n    <p>版权所有 &copy; 2025</p>\n</footer>',
-            'ctrl+5': '<ul>\n    <li>无序列表项</li>\n</ul>',
-            'ctrl+6': '<ol>\n    <li>有序列表项</li>\n</ol>',
-            'ctrl+7': '<table>\n    <caption>表格标题</caption>\n    <thead>\n        <tr>\n            <th>表头</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr>\n            <td>数据1</td>\n        </tr>\n    </tbody>\n</table>',
-            'ctrl+8': '<form action="/submit" method="post">\n    <fieldset>\n        <legend>表单分组</legend>\n        <label for="username">用户名</label>\n        <input type="text" id="username" name="username">\n    </fieldset>\n</form>',
-            'ctrl+9': '<img src="img.jpg" alt="图片描述">'
-        };
-        document.addEventListener('keydown', function(e) {
-            let key = '';
-            if (e.ctrlKey && e.key.match(/^\d$/)) {
-                key = `ctrl+${e.key}`;
-            } else if (e.ctrlKey && e.key === 's') {
-                key = 'ctrl+s';
-            } else if (e.ctrlKey && e.key === 'z') {
-                key = 'ctrl+z';
-            } else if (e.key === 'Escape') {
-                key = 'escape';
-            }
-            if (tagSnippets[key]) {
-                e.preventDefault();
-                const doc = editor.getDoc();
-                const cursor = doc.getCursor();
-                doc.replaceRange(tagSnippets[key], cursor);
-                showToast('已插入标签片段！');
-            }
-        });
 
         // 窗口调整大小时重新计算编辑器尺寸
         window.addEventListener('resize', function() {
@@ -2370,18 +2809,28 @@ fetchData();
                 console.log('自动保存触发');
             }, 30000); // 30秒后自动保存
         });
-        // 上一步、下一步、清空代码功能
-        document.getElementById('undoBtn').addEventListener('click', function() {
-            editor.undo();
-        });
-        document.getElementById('redoBtn').addEventListener('click', function() {
-            editor.redo();
-        });
+        // 清空代码功能
         document.getElementById('clearBtn').addEventListener('click', function() {
             if (confirm('确定要清空当前代码吗？')) {
                 editor.setValue('');
                 showToast('代码已清空！');
             }
+        });
+
+        // 标签插入功能
+        document.querySelectorAll('.tag-insert-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var tag = btn.getAttribute('data-tag');
+                var doc = editor.getDoc();
+                var sel = doc.getSelection();
+                if (sel) {
+                    doc.replaceSelection(tag);
+                } else {
+                    var cursor = doc.getCursor();
+                    doc.replaceRange(tag, cursor);
+                }
+                showToast('标签已插入！');
+            });
         });
 
         // 导入文件功能
