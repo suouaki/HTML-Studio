@@ -407,8 +407,8 @@
     <div class="app-header">
         <h1 class="app-title">🚀 HTML Studio</h1>
         <div class="toolbar">
-            <button class="btn btn-primary" onclick="saveFile()">
-                💾 保存
+            <button class="btn btn-primary" onclick="pasteFromClipboard()">
+                📋 粘贴
             </button>
             <button class="btn btn-secondary" onclick="copyCode()">
                 📋 复制
@@ -801,6 +801,23 @@ function showAlert() {
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3000);
+        }
+
+        // 粘贴剪贴板内容
+        async function pasteFromClipboard() {
+            if (navigator.clipboard) {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    const doc = editor.getDoc();
+                    const cursor = doc.getCursor();
+                    doc.replaceRange(text, cursor);
+                    showToast('已粘贴剪贴板内容！');
+                } catch (err) {
+                    showToast('无法读取剪贴板内容');
+                }
+            } else {
+                showToast('当前浏览器不支持Clipboard API');
+            }
         }
 
         // 保存文件
