@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>增强版HTML编辑器与预览</title>
+    <title>前端HTML开发工具</title>
     <!-- 引入CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/monokai.min.css">
@@ -432,12 +432,17 @@
             <button class="btn btn-icon" onclick="toggleFullscreen()" title="全屏预览">
                 🔍
             </button>
+            <!-- 新增颜色选择器按钮 -->
+            <button class="btn btn-secondary" id="colorPickerBtn" title="选择颜色">
+                🎨 颜色选择
+            </button>
             <select class="theme-selector" onchange="changeTheme(this.value)">
                 <option value="material">Material Dark</option>
                 <option value="monokai">Monokai</option>
                 <option value="default">Default</option>
             </select>
         </div>
+       
     </div>
 
     <div class="main-container">
@@ -1439,7 +1444,29 @@ function showAlert() {
 }
 &lt;/script&gt;</code></pre>
                           </details>
-                    </div>
+                           <!-- 颜色选择器弹窗 -->
+        <div id="colorPickerModal" class="color-picker-modal" style="display:none;">
+            <div class="color-picker-content">
+                <span class="color-picker-close" id="colorPickerClose">&times;</span>
+                <h3>选择颜色</h3>
+                <input type="color" id="colorInput" value="#4f46e5" style="width:60px;height:40px;">
+                <div class="color-format-row">
+                    <label>HEX：</label>
+                    <input type="text" id="colorHex" value="#4f46e5" readonly style="width:110px;">
+                    <button class="btn btn-primary btn-mini" id="copyHexBtn">复制</button>
+                    <span id="copyHexTip" class="copy-tip">已复制！</span>
+                </div>
+                <div class="color-format-row">
+                    <label>RGB：</label>
+                    <input type="text" id="colorRgb" value="rgb(79,70,229)" readonly style="width:110px;">
+                    <button class="btn btn-primary btn-mini" id="copyRgbBtn">复制</button>
+                    <span id="copyRgbTip" class="copy-tip">已复制！</span>
+                </div>
+                <div class="color-format-row">
+                    <label>HSL：</label>
+                    <input type="text" id="colorHsl" value="hsl(237,76%,59%)" readonly style="width:110px;">
+                    <button class="btn btn-primary btn-mini" id="copyHslBtn">复制</button>
+                    <span id="copyHslTip" class="copy-tip">已复制！</span>
                 </div>
             </div>
         </div>
@@ -1926,46 +1953,15 @@ fetchData();
 
         .nav a:hover {
             color: #ff6b6b;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        .article {
-            background: #222;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .article h1 {
-            font-size: 2rem;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-
-        .meta {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 1.5rem;
-        }
-
-        .article h2 {
-            font-size: 1.5rem;
-            color: #e0e0e0;
-            margin: 1.5rem 0 1rem;
-        }
-
-        .article p {
-            margin-bottom: 1rem;
-        }
-
+       /* 颜色选择器弹窗样式 */
+    .color-picker-modal {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .article code {
             background: #333;
             padding: 0.2rem 0.4rem;
@@ -3297,6 +3293,7 @@ fetchData();
         document.getElementById('redoBtn').addEventListener('click', function() {
             editor.redo();
         });
+        
         // 清空代码功能
         document.getElementById('clearBtn').addEventListener('click', function() {
             if (confirm('确定要清空当前代码吗？')) {
@@ -3347,6 +3344,119 @@ fetchData();
                 toggleFullscreen();
             }
         });
+    // 颜色选择器弹窗逻辑
+    function hexToRgb(hex) {
+        hex = hex.replace('#', '');
+        if (hex.length === 3) {
+            hex = hex.split('').map(x => x + x).join('');
+        }
+        const bigint = parseInt(hex, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return [r, g, b];
+    }
+    function rgbToHsl(r, g, b) {
+        r /= 255; g /= 255; b /= 255;
+        let max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        if (max === min) {
+            h = s = 0;
+        } else {
+            let d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+    }
+    function updateColorFormats(hex) {
+        document.getElementById('colorHex').value = hex;
+        const [r, g, b] = hexToRgb(hex);
+        document.getElementById('colorRgb').value = `rgb(${r},${g},${b})`;
+        const [h, s, l] = rgbToHsl(r, g, b);
+        document.getElementById('colorHsl').value = `hsl(${h},${s}%,${l}%)`;
+    }
+    document.getElementById('colorPickerBtn').addEventListener('click', function() {
+        document.getElementById('colorPickerModal').style.display = 'flex';
+        updateColorFormats(document.getElementById('colorInput').value);
+        hideAllCopyTips();
+    });
+    document.getElementById('colorPickerClose').addEventListener('click', function() {
+        document.getElementById('colorPickerModal').style.display = 'none';
+        hideAllCopyTips();
+    });
+    document.getElementById('colorInput').addEventListener('input', function(e) {
+        updateColorFormats(e.target.value);
+        hideAllCopyTips();
+    });
+    function hideAllCopyTips() {
+        document.getElementById('copyHexTip').style.display = 'none';
+        document.getElementById('copyRgbTip').style.display = 'none';
+        document.getElementById('copyHslTip').style.display = 'none';
+    }
+    document.getElementById('copyHexBtn').addEventListener('click', function() {
+        const val = document.getElementById('colorHex').value;
+        navigator.clipboard.writeText(val).then(function() {
+            hideAllCopyTips();
+            document.getElementById('copyHexTip').style.display = 'inline';
+        });
+    });
+    document.getElementById('copyRgbBtn').addEventListener('click', function() {
+        const val = document.getElementById('colorRgb').value;
+        navigator.clipboard.writeText(val).then(function() {
+            hideAllCopyTips();
+            document.getElementById('copyRgbTip').style.display = 'inline';
+        });
+    });
+    document.getElementById('copyHslBtn').addEventListener('click', function() {
+        const val = document.getElementById('colorHsl').value;
+        navigator.clipboard.writeText(val).then(function() {
+            hideAllCopyTips();
+            document.getElementById('copyHslTip').style.display = 'inline';
+        });
+    });
+    document.getElementById('colorPickerModal').addEventListener('click', function(e) {
+        if(e.target === this) {
+            this.style.display = 'none';
+            hideAllCopyTips();
+        }
+    });
     </script>
+    <footer id="footer" style="width:100%;text-align:center;padding:24px 0 12px 0; background:rgba(0,0,0,0.04);margin-top:40px;">
+  <div style="margin-bottom:8px;">
+    <a href="https://notes.suouaki.me/admin" target="_blank" title="notes" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notes.svg" alt="notes" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://youtube.com/你的频道" target="_blank" title="YouTube" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://x.com/你的账号" target="_blank" title="X" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://discord.com/你的账号" target="_blank" title="discord" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="discord" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://instagram.com/你的账号" target="_blank" title="Instagram" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://github.com/akxxxxxxxxx9" target="_blank" title="GitHub" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+    <a href="https://web.telegram.org/你的账号" target="_blank" title="telegram" class="footer-icon">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="telegram" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
+    </a>
+  </div>
+  <div style="margin-top:10px;font-size:15px;color:#555;">
+    团队成员：SUOU AKI
+  </div>
+  <div style="margin-top:8px;font-size:13px;color:#aaa;">
+    &copy; 2025 AKI | Powered by Cloudflare Workers
+  </div>
+</footer>
 </body>
 </html>
