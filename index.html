@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>前端HTML开发工具</title>
+    <title>增强版HTML编辑器与预览</title>
     <!-- 引入CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/monokai.min.css">
@@ -413,6 +413,12 @@
             <button class="btn btn-secondary" onclick="copyCode()">
                 📋 复制
             </button>
+            <button class="btn btn-secondary" id="clearBtn" title="清空代码">
+                🗑️ 清空代码
+            </button>
+            <button class="btn btn-secondary" id="importBtn">
+                📥 导入文件
+            </button>
             <button class="btn btn-secondary" onclick="exportHTML()">
                 📤 导出
             </button>
@@ -421,12 +427,6 @@
             </button>
             <button class="btn btn-secondary" id="redoBtn" title="下一步 (Ctrl+Y)">
                 ➡️ 下一步
-            </button>
-            <button class="btn btn-secondary" id="clearBtn" title="清空代码">
-                🗑️ 清空代码
-            </button>
-            <button class="btn btn-secondary" id="importBtn">
-                📥 导入文件
             </button>
             <input type="file" id="importFile" accept=".html,.htm,.txt" style="display:none">
             <button class="btn btn-icon" onclick="toggleFullscreen()" title="全屏预览">
@@ -571,14 +571,21 @@
                         <h3>🏷️ 常用标签写入</h3>
                         <div class="shortcuts-grid" id="insert-tags-grid">
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;p&gt;&lt;/p&gt;">段落</button>
-<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;a&gt;&lt;/a&gt;">超链接</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;a href=''&gt;超链接&lt;/a&gt;">超链接</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;!DOCTYPE html&gt;">!DOCTYPE html</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;abbr&gt;&lt;/abbr&gt;">缩写</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;address&gt;&lt;/address&gt;">地址</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;area&gt;">图像映射区域</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;article&gt;&lt;/article&gt;">文章</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;aside&gt;&lt;/aside&gt;">侧边栏</button>
-<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;audio&gt;&lt;/audio&gt;">音频</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;audio src='audio.mp3' controls&gt;不支持音频&lt;/audio&gt;">音乐</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;audio src='background.mp3' autoplay loop hidden&gt;&lt;/audio&gt;">背景音乐</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;audio src='audio.mp3' controls&gt;不支持音频&lt;/audio&gt;">插入视频</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;img src='img.jpg' alt='示例图片' width=20%&gt;">图片</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;figure&gt;
+    &lt;img src='img.jpg' alt='示例图片' width=20%&gt;
+    &lt;figcaption&gt;图片说明文字&lt;/figcaption&gt;
+&lt;/figure&gt;">图片说明文字</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;b&gt;&lt;/b&gt;">粗体</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;base&gt;">基准URL</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;bdi&gt;&lt;/bdi&gt;">文本方向隔离</button>
@@ -616,13 +623,16 @@
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h4&gt;&lt;/h4&gt;">标题4</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h5&gt;&lt;/h5&gt;">标题5</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;h6&gt;&lt;/h6&gt;">标题6</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;details&gt;
+    &lt;summary&gt;展开/收起标题&lt;/summary&gt;
+    &lt;p&gt;详细内容&lt;/p&gt;
+&lt;/details&gt;">展开/收起标</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;head&gt;&lt;/head&gt;">文档头部</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;header&gt;&lt;/header&gt;">页眉</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;hr&gt;">水平线</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;html&gt;&lt;/html&gt;">HTML根元素</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;i&gt;&lt;/i&gt;">斜体</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;iframe&gt;&lt;/iframe&gt;">内联框架</button>
-<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;img&gt;">图片</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;input&gt;">输入框</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;ins&gt;&lt;/ins&gt;">插入文本</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;kbd&gt;&lt;/kbd&gt;">键盘输入</button>
@@ -679,8 +689,8 @@
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;u&gt;&lt;/u&gt;">下划线</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;ul&gt;&lt;/ul&gt;">无序列表</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;var&gt;&lt;/var&gt;">变量</button>
-<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;video&gt;&lt;/video&gt;">视频</button>
 <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;wbr&gt;">可选换行</button>
+<button class="btn btn-secondary tag-insert-btn" data-tag="&lt;abbr title='HyperText Markup Language'&gt;HTML&lt;/abbr&gt; &lt;!-- 缩写 --&gt;;">缩写 </button>
 
                         </div>
                         <h3>🎨 CSS属性写入</h3>
@@ -3427,36 +3437,5 @@ fetchData();
         }
     });
     </script>
-    <footer id="footer" style="width:100%;text-align:center;padding:24px 0 12px 0; background:rgba(0,0,0,0.04);margin-top:40px;">
-  <div style="margin-bottom:8px;">
-    <a href="https://notes.suouaki.me/admin" target="_blank" title="notes" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notes.svg" alt="notes" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://youtube.com/你的频道" target="_blank" title="YouTube" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://x.com/你的账号" target="_blank" title="X" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://discord.com/你的账号" target="_blank" title="discord" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="discord" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://instagram.com/你的账号" target="_blank" title="Instagram" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://github.com/akxxxxxxxxx9" target="_blank" title="GitHub" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-    <a href="https://web.telegram.org/你的账号" target="_blank" title="telegram" class="footer-icon">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="telegram" style="width:28px;height:28px;margin:0 10px;vertical-align:middle;">
-    </a>
-  </div>
-  <div style="margin-top:10px;font-size:15px;color:#555;">
-    团队成员：SUOU AKI
-  </div>
-  <div style="margin-top:8px;font-size:13px;color:#aaa;">
-    &copy; 2025 AKI | Powered by Cloudflare Workers
-  </div>
-</footer>
 </body>
 </html>
