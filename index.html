@@ -6,60 +6,6 @@
     <title>增强版HTML编辑器与预览</title>
     <!-- 引入CodeMirror CSS -->
     <script src="a0.js"></script>
-    <script src="shortcuts.js"></script>
-    <script src="guides.js"></script>
-    <script>
-      // 渲染快捷写入标签
-      function renderShortcuts() {
-        const grid = document.getElementById('insert-tags-grid');
-        if (!grid || !window.shortcuts) return;
-        grid.innerHTML = '';
-        window.shortcuts.forEach(item => {
-          const btn = document.createElement('button');
-          btn.className = 'btn btn-secondary tag-insert-btn';
-          btn.setAttribute('data-tag', item.tag);
-          btn.title = item.desc;
-          btn.innerText = item.name;
-          btn.onclick = function() {
-            // CodeMirror 编辑器优先，否则 textarea
-            if (window.editor && typeof window.editor.replaceSelection === 'function') {
-              window.editor.replaceSelection(item.tag);
-            } else {
-              const ta = document.getElementById('codeEditor');
-              if (ta) {
-                const start = ta.selectionStart, end = ta.selectionEnd;
-                const before = ta.value.substring(0, start);
-                const after = ta.value.substring(end);
-                ta.value = before + item.tag + after;
-                ta.focus();
-                ta.selectionStart = ta.selectionEnd = start + item.tag.length;
-              }
-            }
-          };
-          grid.appendChild(btn);
-        });
-      }
-      // 渲染指南
-      function renderGuides() {
-        const section = document.getElementById('guide-section');
-        if (!section || !window.guides) return;
-        section.innerHTML = '';
-        window.guides.forEach(g => {
-          const details = document.createElement('details');
-          const summary = document.createElement('summary');
-          summary.innerText = g.title;
-          details.appendChild(summary);
-          const content = document.createElement('div');
-          content.innerHTML = g.content;
-          details.appendChild(content);
-          section.appendChild(details);
-        });
-      }
-      document.addEventListener('DOMContentLoaded', function() {
-        renderShortcuts();
-        renderGuides();
-      });
-    </script>
     <link rel="icon" type="image/png" href="http://momo-1-img.ao1160301aila.workers.dev/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/monokai.min.css">
@@ -619,7 +565,7 @@
 
         <div class="sidebar">
             <div class="sidebar-tabs">
-                <div class="sidebar-tab active" onclick="switchTab('shortcuts')">快捷写入标签</div>
+                <div class="sidebar-tab active" onclick="switchTab('shortcuts')">快捷写入</div>
                 <div class="sidebar-tab" onclick="switchTab('templates')">模板</div>
                 <div class="sidebar-tab" onclick="switchTab('guide')">指南</div>
             </div>
@@ -627,7 +573,9 @@
             <div class="sidebar-content">
                 <div id="shortcuts-tab" class="tab-content">
                     <div class="guide-section">
-                        <h3>🏷️ 常用标签写入</h3>
+                        <div class="shortcut-section">
+    <h3 class="shortcut-section-title" onclick="toggleShortcutSection('shortcut-section-tags')">🏷️ 常用标签写入</h3>
+    <div class="shortcut-section-content" id="shortcut-section-tags" style="display:none;">
                         <div class="shortcuts-grid" id="insert-tags-grid">
                             <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;p&gt;&lt;/p&gt;">段落</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag="&lt;a href=''&gt;超链接&lt;/a&gt;">超链接</button>
@@ -753,8 +701,11 @@
                             
                                                     </div>
                                                     <h3>🎨 CSS属性写入</h3>
-                                                    <div class="shortcuts-grid" id="insert-tags-grid">
-                                                        <!-- 布局与盒模型 -->
+                                                    <div class="shortcut-section">
+                                                        <h3 class="shortcut-section-title" onclick="toggleShortcutSection('shortcut-section-css')">🎨 CSS属性写入</h3>
+                                                        <div class="shortcut-section-content" id="shortcut-section-css" style="display:none;">
+                                                            <div class="shortcuts-grid" id="insert-tags-grid">
+                                                                <!-- 布局与盒模型 -->
                             <button class="btn btn-secondary tag-insert-btn" data-tag="display: ">定义元素的显示类型 示例：display: flex;</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag="position: ">设置定位方式 示例：position: absolute;</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag="top: ">顶部偏移量 示例：top: 10px;</button>
@@ -1022,7 +973,12 @@
                             <button class="btn btn-secondary tag-insert-btn" data-tag="text-emphasis-color: ">文本强调颜色 示例：text-emphasis-color: red;</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag="text-emphasis-position: ">文本强调位置 示例：text-emphasis-position: over;</button>
                                                     </div>
-                                                    <h3>😶‍🌫️ 选择器写入</h3>
+                        </div>
+    </div>
+</div>
+<div class="shortcut-section">
+    <h3 class="shortcut-section-title" onclick="toggleShortcutSection('shortcut-section-selector')">😶‍🌫️ 选择器写入</h3>
+    <div class="shortcut-section-content" id="shortcut-section-selector" style="display:none;">
                                                     <div class="shortcuts-grid" id="insert-tags-grid">
                                                         <!-- 更多伪类选择器 -->
                             <button class="btn btn-secondary tag-insert-btn" data-tag=":first: ">选择第一个匹配的元素（动态伪类） 示例：tr:first { ... }</button>
@@ -1086,6 +1042,19 @@
                             <button class="btn btn-secondary tag-insert-btn" data-tag=":host-context(selector): ">匹配Shadow DOM宿主上下文的元素 示例：:host-context(.dark-theme) { ... }</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag=":dir(ltr): ">左到右文本方向的元素 示例：:dir(ltr) { ... }</button>
                             <button class="btn btn-secondary tag-insert-btn" data-tag=":dir(rtl): ">右到左文本方向的元素 示例：:dir(rtl) { ... }</button>
+                        </div>
+                    </div>
+                </div>
+<script>
+function toggleShortcutSection(id) {
+  var el = document.getElementById(id);
+  if (el.style.display === 'none' || el.style.display === '') {
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+</script>
                         </div>
                     </div>
                 </div>
